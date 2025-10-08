@@ -1,8 +1,6 @@
-# RailsSchemaExcel
+# Rails Schema to Excel Converter
 
-Export Rails database schema to Excel format with A5:SQL Mk-2 style layout.
-
-<img width="798" height="637" alt="image" src="https://github.com/user-attachments/assets/d538365c-f83d-4536-890b-a0e7c28da534" />
+Convert Rails database schema to Excel format with each table as a separate sheet in A5:SQL Mk-2 style.
 
 ## Installation
 
@@ -20,47 +18,50 @@ Or install it yourself as:
 
     $ gem install rails_schema_excel
 
-## Usage
-
-### Command Line
+## Command Line Usage
 
 ```bash
-# From Rails root directory (uses db/schema.rb by default)
+# Basic usage (Japanese by default)
 rails_schema_excel
 
-# Specify schema file and output
-rails_schema_excel -s db/schema.rb -o output.xlsx
+# Specify input and output files
+rails_schema_excel -s path/to/schema.rb -o output.xlsx
+
+# Specify language (ja, en, ru, zh, vi)
+rails_schema_excel -l en -s schema.rb -o output.xlsx
 
 # Show help
-rails_schema_excel -h
+rails_schema_excel --help
 ```
 
-### In Ruby Code
+## Supported Languages
 
-```ruby
-require 'rails_schema_excel'
+- `ja` - Japanese (default)
+- `en` - English
+- `ru` - Russian
+- `zh` - Chinese
+- `vi` - Vietnamese
 
-RailsSchemaExcel.export('db/schema.rb', 'schema.xlsx')
-```
+## Interactive Usage
 
-## Features
+The script will prompt for:
+- Path to your Rails `schema.rb` file
+- Output Excel filename (optional, defaults to `schema.xlsx`)
 
-Each table is exported as a separate Excel sheet with A5:SQL Mk-2 format including:
-
-- **テーブル情報** (Table Information)
-- **カラム情報** (Column Information) - name, type, not null, default, comments
-- **インデックス情報** (Index Information)
-- **制約情報** (Constraint Information) - primary keys
-- **外部キー情報** (Foreign Key Information)
-- **外部キー情報(PK側)** (Foreign Key Information - PK side)
-- **トリガー情報** (Trigger Information)
-- **RDBMS固有の情報** (RDBMS Specific Information)
+Each database table will be exported as a separate Excel sheet with columns:
+- Column: Column name
+- Type: Data type (string, integer, etc.)
+- Options: Additional options (null constraints, defaults, etc.)
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
-To install this gem onto your local machine, run `bundle exec rake install`.
+To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+
+## Contributing
+
+Bug reports and pull requests are welcome on GitHub at https://github.com/ojisanchamchi/rails_schema_excel.
 
 ## License
 

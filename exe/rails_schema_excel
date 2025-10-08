@@ -16,6 +16,10 @@ OptionParser.new do |opts|
     options[:output] = file
   end
   
+  opts.on("-l", "--locale LOCALE", "Language for output (ja, en, ru, zh, vi) (default: ja)") do |locale|
+    options[:locale] = locale.to_sym
+  end
+  
   opts.on("-h", "--help", "Prints this help") do
     puts opts
     exit
@@ -24,12 +28,19 @@ end.parse!
 
 schema_file = options[:schema] || 'db/schema.rb'
 output_file = options[:output] || 'schema.xlsx'
+locale = options[:locale] || :ja
 
 unless File.exist?(schema_file)
   puts "Error: #{schema_file} not found"
   exit 1
 end
 
-puts "Exporting #{schema_file} to #{output_file}..."
-RailsSchemaExcel.export(schema_file, output_file)
+valid_locales = [:ja, :en, :ru, :zh, :vi]
+unless valid_locales.include?(locale)
+  puts "Error: Invalid locale '#{locale}'. Valid options: #{valid_locales.join(', ')}"
+  exit 1
+end
+
+puts "Exporting #{schema_file} to #{output_file} (locale: #{locale})..."
+RailsSchemaExcel.export(schema_file, output_file, locale: locale)
 puts "Done! Exported to #{output_file}"
