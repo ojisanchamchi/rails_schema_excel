@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'rails_schema_excel'
+require 'optparse'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: rails_schema_excel [options]"
+  
+  opts.on("-s", "--schema FILE", "Path to schema.rb file (default: db/schema.rb)") do |file|
+    options[:schema] = file
+  end
+  
+  opts.on("-o", "--output FILE", "Output Excel file (default: schema.xlsx)") do |file|
+    options[:output] = file
+  end
+  
+  opts.on("-h", "--help", "Prints this help") do
+    puts opts
+    exit
+  end
+end.parse!
+
+schema_file = options[:schema] || 'db/schema.rb'
+output_file = options[:output] || 'schema.xlsx'
+
+unless File.exist?(schema_file)
+  puts "Error: #{schema_file} not found"
+  exit 1
+end
+
+puts "Exporting #{schema_file} to #{output_file}..."
+RailsSchemaExcel.export(schema_file, output_file)
+puts "Done! Exported to #{output_file}"
