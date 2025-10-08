@@ -2,6 +2,8 @@
 
 Export Rails database schema to Excel format with A5:SQL Mk-2 style layout.
 
+<img width="798" height="637" alt="image" src="https://github.com/user-attachments/assets/d538365c-f83d-4536-890b-a0e7c28da534" />
+
 ## Installation
 
 Add this line to your application's Gemfile:
