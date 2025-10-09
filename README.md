@@ -1,6 +1,12 @@
 # Rails Schema to Excel Converter
 
+[![Gem Version](https://badge.fury.io/rb/rails_schema_excel.svg)](https://badge.fury.io/rb/rails_schema_excel)
+
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/ojisanchamchi)
+
 Convert Rails database schema to Excel format with each table as a separate sheet in A5:SQL Mk-2 style.
+
+<img width="798" height="637" alt="image" src="https://github.com/user-attachments/assets/d538365c-f83d-4536-890b-a0e7c28da534" />
 
 ## Installation
 
