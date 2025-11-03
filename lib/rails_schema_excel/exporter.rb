@@ -8,14 +8,21 @@ module RailsSchemaExcel
     GREEN = 'FF92D050'
     
     def self.export(tables, output_file, locale: :ja)
+      sheet_sources = {}
       Axlsx::Package.new do |p|
         tables.each do |table_name, table_data|
           next if table_data[:columns].empty?
           
           sheet_name = table_name[0..30]
+          if (existing_sheet = p.workbook.worksheets.find { |ws| ws.name == sheet_name })
+            original_table = sheet_sources[sheet_name]
+            warn "Duplicate sheet name '#{sheet_name}' detected. Dropping sheet for table '#{original_table}' before adding '#{table_name}'." if original_table
+            p.workbook.worksheets.delete(existing_sheet)
+          end
           p.workbook.add_worksheet(name: sheet_name) do |sheet|
             create_a5_format(sheet, table_name, table_data, locale)
           end
+          sheet_sources[sheet_name] = table_name
         end
         
         p.serialize(output_file)

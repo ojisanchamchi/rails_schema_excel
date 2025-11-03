@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rails_schema_excel (0.1.0)
+    rails_schema_excel (1.0.0)
       caxlsx (~> 4.0)
       caxlsx_rails (~> 0.6)
 
